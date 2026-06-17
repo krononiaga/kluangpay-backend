@@ -29,6 +29,51 @@ In addition, [Laracasts](https://laracasts.com) contains thousands of video tuto
 
 You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
 
+## Local Development Setup
+
+This project includes a small, conventional Laravel app. The steps below get a local development environment running on Windows, macOS, or Linux.
+
+- **Prerequisites:** PHP 8.4+, Composer, Node (16+), NPM/PNPM, XAMPP/Laragon, and MySQL.
+
+- **Quick start (recommended):**
+
+```bash
+# clone
+git clone https://github.com/krononiaga/kluangpay-backend.git kluangpay-backend
+cd kluangpay-backend
+
+# PHP deps
+composer install
+
+# generate app key
+php artisan key:generate
+
+# database migration
+php artisan migrate --seed
+
+# frontend
+pnpm install
+pnpm run dev
+
+# run dev server
+php artisan serve
+```
+
+- **Build for production**
+
+```bash
+npm run build
+```
+
+- **Common troubleshooting**
+
+- If you see a Vite manifest error at runtime, rebuild assets: `npm run build` or run `composer run dev`.
+- Ensure your `.env` database settings match your local DB or use the MySQL quick-start above.
+- If port 8000 is in use, change the `--port` for `php artisan serve`.
+
+If you'd like, I can also add a `CONTRIBUTING` checklist or Docker/ Sail instructions — tell me which you prefer.
+
+
 ## Agentic Development
 
 Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:

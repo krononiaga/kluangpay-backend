@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use Gemini\Laravel\Facades\Gemini;
+use Illuminate\Http\Request;
 
 class ChatController extends Controller
 {
@@ -26,7 +26,7 @@ class ChatController extends Controller
 
         } catch (\Exception $e) {
             return response()->json([
-                'error' => 'Failed to communicate with AI: ' . $e->getMessage()
+                'error' => 'Failed to communicate with AI: '.$e->getMessage(),
             ], 500);
         }
     }

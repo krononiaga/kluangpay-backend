@@ -26,15 +26,15 @@ class ChatController extends Controller
                 'reply' => $result->text(),
             ]);
 
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             // 4. Log the full internal error details securely to storage/logs/laravel.log
-            \Illuminate\Support\Facades\Log::error('Gemini API communication failed: ' . $e->getMessage(), [
-                'exception' => $e
+            Log::error('Gemini API communication failed: '.$e->getMessage(), [
+                'exception' => $e,
             ]);
 
             // 5. Return a perfectly generic, safe message to the frontend user
             return response()->json([
-                'error' => 'An unexpected error occurred while processing your request. Please try again later.'
+                'error' => 'An unexpected error occurred while processing your request. Please try again later.',
             ], 500);
         }
     }

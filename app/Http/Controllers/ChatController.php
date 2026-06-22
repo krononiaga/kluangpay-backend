@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Gemini\Laravel\Facades\Gemini;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
+use Throwable;
 
 class ChatController extends Controller
 {
@@ -15,7 +17,7 @@ class ChatController extends Controller
         ]);
 
         try {
-            // 2. Request a generation from Gemini (Updated to the standard v2.0 generativeModel syntax)
+            // 2. Request a generation from Gemini
             $result = Gemini::generativeModel(model: env('GEMINI_MODEL', 'gemini-2.5-flash'))
                 ->generateContent($request->input('message'));
 
@@ -24,9 +26,15 @@ class ChatController extends Controller
                 'reply' => $result->text(),
             ]);
 
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
+            // 4. Log the full internal error details securely to storage/logs/laravel.log
+            \Illuminate\Support\Facades\Log::error('Gemini API communication failed: ' . $e->getMessage(), [
+                'exception' => $e
+            ]);
+
+            // 5. Return a perfectly generic, safe message to the frontend user
             return response()->json([
-                'error' => 'Failed to communicate with AI: '.$e->getMessage(),
+                'error' => 'An unexpected error occurred while processing your request. Please try again later.'
             ], 500);
         }
     }
